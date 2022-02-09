@@ -1,14 +1,16 @@
 import { Button } from "@chakra-ui/button";
+import { useReportContext } from "../context/ReportsContext";
 
 const CreateReportButton = () => {
+  const { from, to, projectId, gatewayId } = useReportContext();
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
     from: "2020-01-01",
     to: "2022-20-08",
-    projectId: "bgYhx",
-    gatewayId: "i6ssp",
+    projectId,
+    gatewayId,
   });
 
   const requestOptions: RequestInit = {
@@ -21,7 +23,7 @@ const CreateReportButton = () => {
   return (
     <Button
       onClick={async () => {
-        const reportReq = await fetch(
+        await fetch(
           "http://178.63.13.157:8090/mock-api/api/report",
           requestOptions
         )
