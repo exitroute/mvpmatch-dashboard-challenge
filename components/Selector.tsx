@@ -1,19 +1,19 @@
 import { Select } from "@chakra-ui/react";
 import useSWR from "swr";
 import { useState } from "react";
+import { useReportContext } from "../context/ReportsContext";
 
 interface SelectorProps {
   selector: string;
 }
 
 const Selector = (props: SelectorProps) => {
+  const { getProjectId, getGatewayId } = useReportContext();
   const selector = props.selector;
-
-  const [selectedOption, setSelectedOption] = useState<String>();
 
   const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
-    setSelectedOption(value);
+    selector === "project" ? getProjectId(value) : getGatewayId(value);
   };
 
   const { data, error } = useSWR(
