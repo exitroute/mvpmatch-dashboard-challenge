@@ -6,7 +6,7 @@ const fetcher = (arg: any, ...args: any) =>
 
 export const Header = () => {
   return (
-    <Box h="100px">
+    <Box as="header" h="100px">
       <Flex justifyContent={"space-between"}>
         <Flex>
           <Box>Company Logo</Box>
@@ -30,7 +30,9 @@ const Profile = () => {
   return (
     <>
       {data.data.map((el: any, i: number) => (
-        <Box key={i}>{el.firstName}</Box>
+        <Box key={i}>
+          {el.firstName} {el.lastName}
+        </Box>
       ))}
     </>
   );
