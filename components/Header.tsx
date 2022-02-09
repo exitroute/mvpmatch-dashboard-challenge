@@ -1,4 +1,8 @@
 import { Box, Flex } from "@chakra-ui/layout";
+import useSWR from "swr";
+
+const fetcher = (arg: any, ...args: any) =>
+  fetch(arg, ...args).then((res) => res.json());
 
 export const Header = () => {
   return (
@@ -8,8 +12,26 @@ export const Header = () => {
           <Box>Company Logo</Box>
           <Box>Other Logo</Box>
         </Flex>
-        <Box>User Id</Box>
+        <Profile />
       </Flex>
     </Box>
+  );
+};
+
+const Profile = () => {
+  const { data, error } = useSWR(
+    "http://178.63.13.157:8090/mock-api/api/users",
+    fetcher
+  );
+
+  if (!data) return <Box>Loading...</Box>;
+  if (error) return <Box>Failed to load</Box>;
+
+  return (
+    <>
+      {data.data.map((el: any, i: number) => (
+        <Box key={i}>{el.firstName}</Box>
+      ))}
+    </>
   );
 };
