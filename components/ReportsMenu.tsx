@@ -1,15 +1,19 @@
-import { Flex } from "@chakra-ui/layout";
+import { Button, Flex, Select } from "@chakra-ui/react";
+import CreateReportButton from "./CreateReportButton";
+import Selector from "./Selector";
+import useSWR from "swr";
+import { useState } from "react";
 
 const ReportsMenu = () => {
   return (
     <Flex justifyContent="space-between">
       <div>Report Info</div>
       <Flex>
-        <div>Select Project</div>
-        <div>Select Gateway</div>
+        <Selector selector="project" />
+        <Selector selector="gateway" />
         <div>Date Picker From</div>
         <div>Date Picker To</div>
-        <button>Create report</button>
+        <CreateReportButton />
       </Flex>
     </Flex>
   );
