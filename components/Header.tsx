@@ -1,9 +1,6 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import useSWR from "swr";
 
-const fetcher = (arg: any, ...args: any) =>
-  fetch(arg, ...args).then((res) => res.json());
-
 export const Header = () => {
   return (
     <Box as="header" h="100px">
@@ -20,8 +17,7 @@ export const Header = () => {
 
 const Profile = () => {
   const { data, error } = useSWR(
-    "http://178.63.13.157:8090/mock-api/api/users",
-    fetcher
+    "http://178.63.13.157:8090/mock-api/api/users"
   );
 
   if (!data) return <Box>Loading...</Box>;
