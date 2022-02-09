@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/button";
 import { useReportContext } from "../context/ReportsContext";
 
 const CreateReportButton = () => {
-  const { from, to, projectId, gatewayId } = useReportContext();
+  const { from, to, projectId, gatewayId, getReports } = useReportContext();
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -27,8 +27,8 @@ const CreateReportButton = () => {
           "http://178.63.13.157:8090/mock-api/api/report",
           requestOptions
         )
-          .then((response) => response.text())
-          .then((result) => console.log(result))
+          .then((response) => response.json())
+          .then((result) => getReports(result.data))
           .catch((error) => console.log("error", error));
       }}
     >
