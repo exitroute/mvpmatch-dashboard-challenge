@@ -1,5 +1,12 @@
+import { useReportContext } from "../context/ReportsContext";
+
 const ReportsDisplay = () => {
-  return <div>All the reports</div>;
+  const { reports } = useReportContext();
+  return (
+    <div>
+      <pre>{JSON.stringify(reports, null, 2)}</pre>
+    </div>
+  );
 };
 
 export default ReportsDisplay;
