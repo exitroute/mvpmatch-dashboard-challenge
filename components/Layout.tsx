@@ -13,7 +13,9 @@ export default function Layout({ children }: LayoutProps) {
       <Header />
       <Flex flex="1">
         <SideBar />
-        <main>{children}</main>
+        <Box as="main" flex="1">
+          {children}
+        </Box>
       </Flex>
       <Footer />
     </Flex>
