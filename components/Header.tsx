@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/layout";
-import useSWR from "swr";
+import { useAppContext } from "../context/AppContext";
 
 export const Header = () => {
   return (
@@ -16,16 +16,13 @@ export const Header = () => {
 };
 
 const Profile = () => {
-  const { data, error } = useSWR(
-    "http://178.63.13.157:8090/mock-api/api/users"
-  );
+  const { userData } = useAppContext();
 
-  if (!data) return <Box>Loading...</Box>;
-  if (error) return <Box>Failed to load</Box>;
+  if (!userData) return <Box>Loading...</Box>;
 
   return (
     <>
-      {data.data.map((el: any, i: number) => (
+      {userData.map((el: any, i: number) => (
         <Box key={i}>
           {el.firstName} {el.lastName}
         </Box>
