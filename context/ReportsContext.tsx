@@ -5,10 +5,17 @@ interface reportContextType {
   getFrom?: any;
   to?: string;
   getTo?: any;
+
   projectId?: string;
   getProjectId?: any;
+  projectName?: string;
+  getProjectName?: any;
+
   gatewayId?: string;
   getGatewayId?: any;
+  gatewayName?: string;
+  getGatewayName?: any;
+
   reports?: any[];
   getReports?: any;
 }
@@ -17,7 +24,9 @@ const reportContextDefaultValues: reportContextType = {
   from: "",
   to: "",
   projectId: "",
+  projectName: "",
   gatewayId: "",
+  gatewayName: "",
   reports: [],
 };
 
@@ -33,7 +42,9 @@ export function ReportsProvider({ children }: Props) {
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
   const [projectId, setProjectId] = useState<string>("");
+  const [projectName, setProjectName] = useState<string>("");
   const [gatewayId, setGatewayId] = useState<string>("");
+  const [gatewayName, setGatewayName] = useState<string>("");
   const [reports, setReports] = useState<Array<{}>>([]);
 
   const getFrom = (date: string) => {
@@ -48,8 +59,16 @@ export function ReportsProvider({ children }: Props) {
     setGatewayId(id);
   };
 
+  const getGatewayName = (name: string) => {
+    setGatewayName(name);
+  };
+
   const getProjectId = (id: string) => {
     setProjectId(id);
+  };
+
+  const getProjectName = (name: string) => {
+    setProjectName(name);
   };
 
   const getReports = (reports: Array<{}>) => {
@@ -63,8 +82,12 @@ export function ReportsProvider({ children }: Props) {
     getTo,
     projectId,
     getProjectId,
+    projectName,
+    getProjectName,
     gatewayId,
     getGatewayId,
+    gatewayName,
+    getGatewayName,
     reports,
     getReports,
   };
