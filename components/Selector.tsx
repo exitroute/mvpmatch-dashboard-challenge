@@ -1,20 +1,20 @@
 import { Select } from "@chakra-ui/react";
-import useSWR from "swr";
-import { useState } from "react";
 import { useReportContext } from "../context/ReportsContext";
+import { useAppContext } from "../context/AppContext";
 
 interface SelectorProps {
   selector: string;
 }
 
 const Selector = (props: SelectorProps) => {
-  const { getProjectId, getProjectName, getGatewayId, getGatewayName } =
-    useReportContext();
   const selector = props.selector;
 
-  const { data, error } = useSWR(
-    `http://178.63.13.157:8090/mock-api/api/${selector}s`
-  );
+  const { projectData, gatewayData } = useAppContext();
+
+  const data = selector === "project" ? projectData : gatewayData;
+
+  const { getProjectId, getProjectName, getGatewayId, getGatewayName } =
+    useReportContext();
 
   const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const [id, name] = JSON.parse(event.target.value);
@@ -29,7 +29,6 @@ const Selector = (props: SelectorProps) => {
   };
 
   if (!data) return <Select placeholder="Loading..." />;
-  if (error) return <Select placeholder="Failed to load" />;
 
   return (
     <Select onChange={selectChange}>
@@ -37,7 +36,7 @@ const Selector = (props: SelectorProps) => {
         value={JSON.stringify(["", ""])}
         selected
       >{`All ${selector}s`}</option>
-      {data.data.map((el: any, i: any) => (
+      {data.map((el: any, i: any) => (
         <option
           key={i}
           value={
