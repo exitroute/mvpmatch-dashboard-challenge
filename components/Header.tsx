@@ -3,8 +3,8 @@ import useSWR from "swr";
 
 export const Header = () => {
   return (
-    <Box as="header" h="100px">
-      <Flex justifyContent={"space-between"}>
+    <Box as="header">
+      <Flex justifyContent={"space-between"} minH="100px">
         <Flex>
           <Box>Company Logo</Box>
           <Box>Other Logo</Box>

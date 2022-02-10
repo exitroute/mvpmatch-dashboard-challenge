@@ -22,6 +22,7 @@ const CreateReportButton = () => {
 
   return (
     <Button
+      minW="fit-content"
       onClick={async () => {
         await fetch(
           "http://178.63.13.157:8090/mock-api/api/report",
