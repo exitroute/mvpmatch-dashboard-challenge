@@ -32,7 +32,11 @@ const Selector = (props: SelectorProps) => {
   if (error) return <Select placeholder="Failed to load" />;
 
   return (
-    <Select onChange={selectChange} placeholder={`All ${selector}s`}>
+    <Select onChange={selectChange}>
+      <option
+        value={JSON.stringify(["", ""])}
+        selected
+      >{`All ${selector}s`}</option>
       {data.data.map((el: any, i: any) => (
         <option
           key={i}
