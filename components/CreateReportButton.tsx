@@ -7,8 +7,8 @@ const CreateReportButton = () => {
   myHeaders.append("Content-Type", "application/json");
 
   const raw = JSON.stringify({
-    from: "2020-01-01",
-    to: "2022-20-08",
+    from,
+    to,
     projectId,
     gatewayId,
   });
