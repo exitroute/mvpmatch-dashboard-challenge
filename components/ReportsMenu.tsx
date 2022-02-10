@@ -1,8 +1,7 @@
 import { Button, Flex, Select } from "@chakra-ui/react";
 import CreateReportButton from "./CreateReportButton";
 import Selector from "./Selector";
-import useSWR from "swr";
-import { useState } from "react";
+import DateInput from "./DateInput";
 
 const ReportsMenu = () => {
   return (
@@ -11,8 +10,8 @@ const ReportsMenu = () => {
       <Flex>
         <Selector selector="project" />
         <Selector selector="gateway" />
-        <div>Date Picker From</div>
-        <div>Date Picker To</div>
+        <DateInput dateParam="from" />
+        <DateInput dateParam="to" />
         <CreateReportButton />
       </Flex>
     </Flex>
