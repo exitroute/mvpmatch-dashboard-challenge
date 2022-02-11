@@ -12,19 +12,21 @@ const Reports: NextPage = () => {
   const url = `http://178.63.13.157:8090/mock-api/api`;
 
   const { data: users, error: fetchUserDataError } = useSWR(`${url}/users`);
-  if (fetchUserDataError) console.error(fetchUserDataError);
-  getUserData(users.data);
-
   const { data: projects, error: fetchProjectDataError } = useSWR(
-    `${url}/projects`
+    () => `${url}/projects`
   );
-  if (fetchProjectDataError) console.error(fetchProjectDataError);
-  getProjectData(projects.data);
-
   const { data: gateways, error: fetchGatewayDataError } = useSWR(
-    `${url}/gateways`
+    () => `${url}/gateways`
   );
+
+  if (fetchUserDataError) console.error(fetchUserDataError);
+  if (fetchProjectDataError) console.error(fetchProjectDataError);
   if (fetchGatewayDataError) console.error(fetchGatewayDataError);
+
+  if (!users || !projects || !gateways) return <div>loading...</div>;
+
+  getUserData(users.data);
+  getProjectData(projects.data);
   getGatewayData(gateways.data);
 
   return (
