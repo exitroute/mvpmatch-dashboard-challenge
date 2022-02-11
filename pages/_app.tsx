@@ -7,17 +7,17 @@ import { SWRConfig } from "swr";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AppProvider>
-      <SWRConfig
-        value={{
-          refreshInterval: 3000,
-          fetcher: (arg: any, ...args: any) =>
-            fetch(arg, ...args).then((res) => res.json()),
-        }}
-      >
-        <ChakraProvider>
+      <ChakraProvider>
+        <SWRConfig
+          value={{
+            refreshInterval: 3000,
+            fetcher: (arg: any, ...args: any) =>
+              fetch(arg, ...args).then((res) => res.json()),
+          }}
+        >
           <Component {...pageProps} />
-        </ChakraProvider>
-      </SWRConfig>
+        </SWRConfig>
+      </ChakraProvider>
     </AppProvider>
   );
 }
