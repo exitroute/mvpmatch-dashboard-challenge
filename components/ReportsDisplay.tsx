@@ -52,7 +52,7 @@ const ReportsDisplay = () => {
         (acc: any, cur: any) => parseFloat(acc) + parseFloat(cur.amount),
         0
       )
-      .toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+      .toLocaleString("en-US", { style: "currency", currency: "USD" });
   };
 
   return (
@@ -67,7 +67,10 @@ const ReportsDisplay = () => {
       {reportsByProject.length === 1 ? (
         <>
           {reportsByProject.map((project, i) => (
-            <ReportsTable key={i} project={project} />
+            <>
+              <ReportsTable key={i} project={project} />
+              <Box padding="1rem">Total: {renderProjectTotal(project)}</Box>
+            </>
           ))}
         </>
       ) : (
