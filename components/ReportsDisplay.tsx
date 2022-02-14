@@ -13,7 +13,6 @@ import { useAppContext } from "../context/AppContext";
 
 const ReportsDisplay = () => {
   const { reports, projectName, gatewayName } = useReportContext();
-
   const { projectData, gatewayData } = useAppContext();
 
   const projectIdsAndNames = projectData.map((el: any) => {
@@ -58,60 +57,75 @@ const ReportsDisplay = () => {
 
   return (
     <Box>
-      <Box>
+      <Box p="1rem">
         <Text>
           {`${projectName?.length === 0 ? `All Projects` : projectName} | 
         ${gatewayName?.length === 0 ? `All Gateways` : gatewayName}`}
         </Text>
       </Box>
 
-      <Accordion allowToggle>
-        {reportsByProject.map((project, i) => (
-          <AccordionItem key={i}>
-            {project?.length ? (
-              <AccordionButton justifyContent="space-between">
-                <Text fontSize="large">
-                  {renderProjectTitle(project[0].projectId)}
-                </Text>
-                <Text fontSize="large">
-                  Total {renderProjectTotal(project)}
-                </Text>
-              </AccordionButton>
-            ) : null}
-            <AccordionPanel>
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Date</Th>
-                    <Th>Gateway</Th>
-                    <Th>Transaction ID</Th>
-                    <Th>Amount</Th>
-                  </Tr>
-                </Thead>
-                {project?.length
-                  ? project?.map((report) => (
-                      <Tbody key={report.paymentId}>
-                        <Tr>
-                          <Td>{report.created}</Td>
-                          <Td>{report.gatewayName}</Td>
-                          <Td>{report.paymentId}</Td>
-                          <Td>
-                            {report.amount.toLocaleString("de-DE", {
-                              style: "currency",
-                              currency: "EUR",
-                            })}
-                          </Td>
-                        </Tr>
-                      </Tbody>
-                    ))
-                  : null}
-              </Table>
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      {reportsByProject.length === 1 ? (
+        <>
+          {reportsByProject.map((project, i) => (
+            <ReportsTable key={i} project={project} />
+          ))}
+        </>
+      ) : (
+        <Accordion allowToggle>
+          {reportsByProject.map((project, i) => (
+            <AccordionItem key={i}>
+              {project?.length ? (
+                <AccordionButton justifyContent="space-between">
+                  <Text fontSize="large">
+                    {renderProjectTitle(project[0].projectId)}
+                  </Text>
+                  <Text fontSize="large">
+                    Total {renderProjectTotal(project)}
+                  </Text>
+                </AccordionButton>
+              ) : null}
+              <AccordionPanel>
+                <ReportsTable project={project} />
+              </AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      )}
     </Box>
   );
 };
 
 export default ReportsDisplay;
+
+const ReportsTable = (props: any) => {
+  const { project } = props;
+  return (
+    <Table variant="simple">
+      <Thead>
+        <Tr>
+          <Th>Date</Th>
+          <Th>Gateway</Th>
+          <Th>Transaction ID</Th>
+          <Th>Amount</Th>
+        </Tr>
+      </Thead>
+      {project?.length
+        ? project?.map((report: any) => (
+            <Tbody key={report.paymentId}>
+              <Tr>
+                <Td>{report.created}</Td>
+                <Td>{report.gatewayName}</Td>
+                <Td>{report.paymentId}</Td>
+                <Td>
+                  {report.amount.toLocaleString("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
+                  })}
+                </Td>
+              </Tr>
+            </Tbody>
+          ))
+        : null}
+    </Table>
+  );
+};
