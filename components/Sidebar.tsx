@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, List, ListItem } from "@chakra-ui/react";
 
 interface LinkItemProps {
   name: string;
@@ -14,12 +14,14 @@ const linkItems: Array<LinkItemProps> = [
 
 export const SideBar = () => {
   return (
-    <Box maxW="100px">
-      <ul>
+    <Box maxW="200px" p="3rem">
+      <List listStyleType="none">
         {linkItems.map((item, i) => (
-          <li key={i}>{item.name}</li>
+          <ListItem py="1rem" key={i}>
+            {item.name}
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </Box>
   );
 };

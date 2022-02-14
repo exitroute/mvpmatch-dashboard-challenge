@@ -6,8 +6,8 @@ export const Header = () => {
     <Box as="header">
       <Flex justifyContent={"space-between"} minH="100px">
         <Flex>
-          <Box>Company Logo</Box>
-          <Box>Other Logo</Box>
+          <Box p="2rem">Company Logo</Box>
+          <Box p="2rem">Other Logo</Box>
         </Flex>
         <Profile />
       </Flex>
@@ -23,7 +23,7 @@ const Profile = () => {
   return (
     <>
       {userData.map((el: any, i: number) => (
-        <Box key={i}>
+        <Box p="2rem" key={i}>
           {el.firstName} {el.lastName}
         </Box>
       ))}
