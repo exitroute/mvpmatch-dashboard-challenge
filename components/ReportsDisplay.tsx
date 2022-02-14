@@ -4,37 +4,57 @@ import {
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon,
 } from "@chakra-ui/react";
 
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-} from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 
 import { useReportContext } from "../context/ReportsContext";
 import { useAppContext } from "../context/AppContext";
-import { report } from "process";
 
 const ReportsDisplay = () => {
-  const { reports, from, to, projectId, projectName, gatewayId, gatewayName } =
-    useReportContext();
+  const { reports, projectName, gatewayName } = useReportContext();
 
   const { projectData, gatewayData } = useAppContext();
 
-  const projectIds = projectData.map((el: any) => el.projectId);
-
-  const reportsByProject = projectIds.map((el) => {
-    return reports?.filter((report) => report.projectId === el);
+  const projectIdsAndNames = projectData.map((el: any) => {
+    return { id: el.projectId, name: el.name };
   });
 
-  console.log(reportsByProject);
+  const gatewayIdsAndNames = gatewayData.map((el: any) => {
+    return { id: el.gatewayId, name: el.name };
+  });
+
+  const reportsByProject = projectIdsAndNames
+    // sort by project id
+    .map((el) => {
+      return reports?.filter((report) => report.projectId === el.id);
+    })
+    // remove empty arrays
+    .filter((project) => project?.length)
+    // add gateway names
+    .map((project) => {
+      return project?.map((report) => {
+        gatewayIdsAndNames.map((el) => {
+          if (el.id === report?.gatewayId) {
+            report.gatewayName = el.name;
+          }
+        });
+        return report;
+      });
+    });
+
+  const renderProjectTitle = (id: string) => {
+    return projectIdsAndNames.find((el) => el.id === id)?.name;
+  };
+
+  const renderProjectTotal = (arr: any) => {
+    return arr
+      .reduce(
+        (acc: any, cur: any) => parseFloat(acc) + parseFloat(cur.amount),
+        0
+      )
+      .toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+  };
 
   return (
     <Box>
@@ -49,12 +69,17 @@ const ReportsDisplay = () => {
         {reportsByProject.map((project, i) => (
           <AccordionItem key={i}>
             {project?.length ? (
-              <AccordionButton>
-                <Text fontSize="large">Project {i + 1}</Text>
+              <AccordionButton justifyContent="space-between">
+                <Text fontSize="large">
+                  {renderProjectTitle(project[0].projectId)}
+                </Text>
+                <Text fontSize="large">
+                  Total {renderProjectTotal(project)}
+                </Text>
               </AccordionButton>
             ) : null}
             <AccordionPanel>
-              <Table variant="striped" colorScheme="gray">
+              <Table variant="simple">
                 <Thead>
                   <Tr>
                     <Th>Date</Th>
@@ -68,9 +93,14 @@ const ReportsDisplay = () => {
                       <Tbody key={report.paymentId}>
                         <Tr>
                           <Td>{report.created}</Td>
-                          <Td>{report.gatewayId}</Td>
+                          <Td>{report.gatewayName}</Td>
                           <Td>{report.paymentId}</Td>
-                          <Td>{report.amount}</Td>
+                          <Td>
+                            {report.amount.toLocaleString("de-DE", {
+                              style: "currency",
+                              currency: "EUR",
+                            })}
+                          </Td>
                         </Tr>
                       </Tbody>
                     ))
@@ -85,21 +115,3 @@ const ReportsDisplay = () => {
 };
 
 export default ReportsDisplay;
-
-const ProjectAccordion = () => {
-  return (
-    <Accordion>
-      <AccordionItem>
-        <h2>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              Project 1
-            </Box>
-            <Box>Total: 14,000</Box>
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}></AccordionPanel>
-      </AccordionItem>
-    </Accordion>
-  );
-};
