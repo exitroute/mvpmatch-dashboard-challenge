@@ -5,7 +5,7 @@ import DateInput from "./DateInput";
 
 const ReportsMenu = () => {
   return (
-    <Flex justifyContent="space-between" minH="50px">
+    <Flex justifyContent="space-between" minH="50px" p="1rem">
       <div>Report Info</div>
       <Flex>
         <Selector selector="project" />
