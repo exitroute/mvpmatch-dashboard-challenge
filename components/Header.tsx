@@ -3,7 +3,7 @@ import { useAppContext } from "../context/AppContext";
 
 export const Header = () => {
   return (
-    <Box as="header">
+    <Box as="header" position="sticky" top="0" backgroundColor="#fff">
       <Flex justifyContent={"space-between"} minH="100px">
         <Flex>
           <Box p="2rem">Company Logo</Box>
