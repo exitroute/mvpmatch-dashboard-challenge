@@ -7,13 +7,13 @@ interface DateInputProp {
 
 const DateInput = (props: DateInputProp) => {
   const dateParam = props.dateParam;
-  const { getTo, getFrom } = useReportContext();
+  const { getTo, to, getFrom, from } = useReportContext();
 
   const changeHandler = (e: any, param: string) => {
     param === "to" ? getTo(e.target.value) : getFrom(e.target.value);
   };
 
-  return <Input type="date" onChange={(e) => changeHandler(e, dateParam)} />;
+  return <Input type="date" min={from} max={to} onChange={(e) => changeHandler(e, dateParam)} />;
 };
 
 export default DateInput;
