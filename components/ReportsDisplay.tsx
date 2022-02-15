@@ -63,7 +63,7 @@ const ReportsDisplay = () => {
       );
     });
 
-  const renderProjectTitle = (id: string) => {
+  const renderProjectTitle = (id: string | undefined) => {
     return projectIdsAndNames.find((el) => el.id === id)?.name;
   };
 
