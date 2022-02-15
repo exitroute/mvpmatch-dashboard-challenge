@@ -32,10 +32,7 @@ const Selector = (props: SelectorProps) => {
 
   return (
     <Select onChange={selectChange}>
-      <option
-        value={JSON.stringify(["", ""])}
-        selected
-      >{`All ${selector}s`}</option>
+      <option value={JSON.stringify(["", ""])}>{`All ${selector}s`}</option>
       {data.map((el: any, i: any) => (
         <option
           key={i}
