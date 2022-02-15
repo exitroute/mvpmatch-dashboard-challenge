@@ -39,7 +39,19 @@ const ReportsDisplay = () => {
           }
         });
         return report;
-      });
+          })
+          // sort dates
+          .sort(
+            (a: any, b: any) =>
+              new Date(a.created).getTime() - new Date(b.created).getTime()
+          )
+          // format dates
+          .map((report) => {
+            return {
+              ...report,
+              created: new Date(report.created).toLocaleDateString("en-GB"),
+            };
+          })
     });
 
   const renderProjectTitle = (id: string) => {
