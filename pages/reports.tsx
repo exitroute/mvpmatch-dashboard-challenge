@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import ReportsMenu from "../components/ReportsMenu";
 import ReportsDisplay from "../components/ReportsDisplay";
 import useSWR from "swr";
+import { useEffect } from "react";
 
 const Reports: NextPage = () => {
   const { getUserData, getProjectData, getGatewayData } = useAppContext();
@@ -19,15 +20,19 @@ const Reports: NextPage = () => {
     () => `${url}/gateways`
   );
 
+  useEffect(() => {
+    if (users && projects && gateways) {
+      getUserData(users.data);
+      getProjectData(projects.data);
+      getGatewayData(gateways.data);
+    }
+  }, [users, projects, gateways, getUserData, getProjectData, getGatewayData]);
+
   if (fetchUserDataError) console.error(fetchUserDataError);
   if (fetchProjectDataError) console.error(fetchProjectDataError);
   if (fetchGatewayDataError) console.error(fetchGatewayDataError);
 
   if (!users || !projects || !gateways) return <div>loading...</div>;
-
-  getUserData(users.data);
-  getProjectData(projects.data);
-  getGatewayData(gateways.data);
 
   return (
     <ReportsProvider>
