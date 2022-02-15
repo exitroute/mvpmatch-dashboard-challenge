@@ -16,7 +16,11 @@ interface reportContextType {
   gatewayName?: string;
   getGatewayName?: any;
 
-  reports?: any[];
+  reports?: Array<{
+    projectId?: string;
+    gatewayId?: string;
+    [key: string]: any;
+  }>;
   getReports?: any;
 }
 
