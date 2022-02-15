@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import {
   Accordion,
   AccordionItem,
@@ -7,6 +7,10 @@ import {
 } from "@chakra-ui/react";
 
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 import { useReportContext } from "../context/ReportsContext";
 import { useAppContext } from "../context/AppContext";
@@ -88,10 +92,15 @@ const ReportsDisplay = () => {
       {reportsByProject.length === 1 ? (
         <>
           {reportsByProject.map((project, i) => (
-            <>
-              <ReportsTable key={i} project={project} />
-              <Box padding="1rem">Total: {renderProjectTotal(project)}</Box>
-            </>
+            <Flex key={i}>
+              <Box>
+                <ReportsTable project={project} />
+                <Box padding="1rem">Total: {renderProjectTotal(project)}</Box>
+              </Box>
+              <Box>
+                <Pie data={chartData} />
+              </Box>
+            </Flex>
           ))}
         </>
       ) : (
@@ -151,5 +160,36 @@ const ReportsTable = (props: any) => {
           ))
         : null}
     </Table>
+  );
+};
+
+const chartData = {
+  labels: ["Gateway 1", "Gateway 2", "Gateway 3", "Gateway 4"],
+  datasets: [
+    {
+      label: "Project revenue",
+      data: [19, 23, 3, 3],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+
+const PieChart = ({ data }: any) => {
+  return (
+    <>
+      <Pie data={data} />
+    </>
   );
 };
