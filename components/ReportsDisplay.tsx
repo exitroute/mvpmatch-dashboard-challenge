@@ -30,15 +30,17 @@ const ReportsDisplay = () => {
     })
     // remove empty arrays
     .filter((project) => project?.length)
-    // add gateway names
     .map((project) => {
-      return project?.map((report) => {
-        gatewayIdsAndNames.map((el) => {
-          if (el.id === report?.gatewayId) {
-            report.gatewayName = el.name;
-          }
-        });
-        return report;
+      return (
+        project
+          // add gateway names
+          ?.map((report) => {
+            gatewayIdsAndNames.map((el) => {
+              if (el.id === report?.gatewayId) {
+                report.gatewayName = el.name;
+              }
+            });
+            return report;
           })
           // sort dates
           .sort(
@@ -58,6 +60,7 @@ const ReportsDisplay = () => {
             const gatewayB = b.gatewayName.slice(-1);
             return gatewayA - gatewayB;
           })
+      );
     });
 
   const renderProjectTitle = (id: string) => {
