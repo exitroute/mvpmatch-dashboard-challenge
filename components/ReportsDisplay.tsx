@@ -24,9 +24,9 @@ const ReportsDisplay = () => {
   });
 
   const reportsByProject = projectIdsAndNames
-    // sort by project id
-    .map((el) => {
-      return reports?.filter((report) => report.projectId === el.id);
+    // sort and split by project id
+    .map((project) => {
+      return reports?.filter((report) => report.projectId === project.id);
     })
     // remove empty arrays
     .filter((project) => project?.length)
