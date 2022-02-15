@@ -52,6 +52,12 @@ const ReportsDisplay = () => {
               created: new Date(report.created).toLocaleDateString("en-GB"),
             };
           })
+          // sort by gateway
+          .sort((a: any, b: any) => {
+            const gatewayA = a.gatewayName.slice(-1);
+            const gatewayB = b.gatewayName.slice(-1);
+            return gatewayA - gatewayB;
+          })
     });
 
   const renderProjectTitle = (id: string) => {
