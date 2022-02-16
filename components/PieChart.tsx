@@ -1,5 +1,5 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({ project }: any) => {
@@ -22,8 +22,6 @@ const PieChart = ({ project }: any) => {
     }
     return acc;
   }, []);
-
-  console.log(gatewayNamesAndTotals);
 
   const chartData = {
     labels: gatewayNamesAndTotals.map((el: any) => el.gatewayName),
@@ -50,7 +48,7 @@ const PieChart = ({ project }: any) => {
 
   return (
     <>
-      <Pie data={chartData} />
+      <Doughnut data={chartData} />
     </>
   );
 };
