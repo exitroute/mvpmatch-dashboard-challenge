@@ -9,7 +9,13 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <Flex direction="column" justify="space-between" h="100vh">
+    <Flex
+      direction="column"
+      justify="space-between"
+      h="100vh"
+      maxW="1200px"
+      mx="auto"
+    >
       <Header />
       <Flex flex="1">
         <SideBar />
