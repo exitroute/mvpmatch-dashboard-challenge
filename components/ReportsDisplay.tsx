@@ -78,8 +78,8 @@ const ReportsDisplay = () => {
     <Box>
       <Box p="1rem">
         <Text>
-          {`${projectName?.length === 0 ? `All Projects` : projectName} | 
-        ${gatewayName?.length === 0 ? `All Gateways` : gatewayName}`}
+          {`${projects?.length > 1 ? `All Projects` : projects[0]}`} |&nbsp;
+          {`${gateways?.length > 1 ? `All Gateways` : gateways[0]}`}
         </Text>
       </Box>
 
