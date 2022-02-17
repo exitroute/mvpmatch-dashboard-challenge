@@ -10,7 +10,8 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 
 import { useReportContext } from "../context/ReportsContext";
 import { useAppContext } from "../context/AppContext";
-import PieChart from "./PieChart";
+import GatewayDoughnutChart from "./GatewayDoughnutChart";
+import ProjectDoughnutChart from "./ProjectDoughnutChart";
 
 const ReportsDisplay = () => {
   const { reports, projectName, gatewayName } = useReportContext();
