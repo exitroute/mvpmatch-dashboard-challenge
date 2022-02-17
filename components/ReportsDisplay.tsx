@@ -121,24 +121,36 @@ const SingleProjectReport = ({
   return (
     <Flex>
       {reportsByGateway.length === 1 ? (
-        <Box width="50%">
+        <Box flexGrow="1">
           <GatewayTable project={reportsByGateway.flat()} />
-          <Box padding="1rem">
-            Total: {renderProjectTotal(reportsByGateway)}
+          <Box padding="1rem" display="flex">
+            Total: {renderProjectTotal(reportsByGateway.flat())}
           </Box>
         </Box>
       ) : (
-        <Flex>
+        <Flex flexGrow="1">
           <MultipleGatewayDisplay
             reportsByGateway={reportsByGateway}
             gatewayIdsAndNames={gatewayIdsAndNames}
             renderProjectTotal={renderProjectTotal}
           />
-          <Box width="50%" px="4rem">
+          <Flex
+            width="50%"
+            px="4rem"
+            flexDirection="column"
+            justifyContent="space-between"
+          >
             <GatewayDoughnutChart project={reportsByGateway.flat()} />
-          </Box>
+            <Box padding="1rem">
+              Total: {renderProjectTotal(reportsByGateway.flat())}
+            </Box>
+          </Flex>
         </Flex>
       )}
+    </Flex>
+  );
+};
+
 const MultipleProjectReports = ({
   reportsByProject,
   projectIdsAndNames,
@@ -200,7 +212,7 @@ const MultipleGatewayDisplay = ({
   };
 
   return (
-    <Accordion allowToggle>
+    <Accordion allowToggle flexGrow="1">
       {reportsByGateway.map((gateway: any, i: number) => (
         <AccordionItem key={i}>
           <AccordionButton justifyContent="space-between">
@@ -219,7 +231,6 @@ const MultipleGatewayDisplay = ({
 };
 
 const GatewayTable = ({ project }: any) => {
-  console.log("Gateway Table project", project);
   return (
     <Table variant="simple">
       <Thead>
@@ -251,49 +262,7 @@ const GatewayTable = ({ project }: any) => {
   );
 };
 
-const MultipleProjectReports = ({
-  reportsByProject,
-  projectIdsAndNames,
-  renderProjectTotal,
-}: any) => {
-  const renderProjectTitle = (id: string | undefined) => {
-    return projectIdsAndNames.find((el: any) => el.id === id)?.name;
-  };
-
-  return (
-    <Flex>
-      <Accordion allowToggle>
-        {reportsByProject.map((project: any, i: number) => (
-          <AccordionItem key={i}>
-            {project && (
-              <>
-                <AccordionButton justifyContent="space-between">
-                  <Text fontSize="large">
-                    {renderProjectTitle(project[0].projectId)}
-                  </Text>
-                  <Text fontSize="large">
-                    Total {renderProjectTotal(project)}
-                  </Text>
-                </AccordionButton>
-                <AccordionPanel>
-                  <ReportsTable project={project} />
-                </AccordionPanel>
-              </>
-            )}
-          </AccordionItem>
-        ))}
-      </Accordion>
-      <Box width="50%" px="4rem">
-        <ProjectDoughnutChart
-          project={reportsByProject.flat()}
-          projectIdsAndNames={projectIdsAndNames}
-        />
-      </Box>
-    </Flex>
-  );
-};
-
-const ReportsTable = ({ project }: any) => {
+const ReportsTable = ({ project, gatewayId }: any) => {
   return (
     <Table variant="simple">
       <Thead>
