@@ -14,7 +14,7 @@ import GatewayDoughnutChart from "./GatewayDoughnutChart";
 import ProjectDoughnutChart from "./ProjectDoughnutChart";
 
 const ReportsDisplay = () => {
-  const { reports, projectName, gatewayName } = useReportContext();
+  const { reports } = useReportContext();
   const { projectData, gatewayData } = useAppContext();
 
   const projectIdsAndNames = projectData.map((el: any) => {
