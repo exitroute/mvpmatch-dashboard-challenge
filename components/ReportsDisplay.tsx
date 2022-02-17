@@ -139,6 +139,14 @@ const SingleProjectReport = ({
           </Box>
         </Flex>
       )}
+  const { gatewayId } = useReportContext();
+
+      <Box
+        width="50%"
+        px="4rem"
+        display={gatewayId?.length !== 0 ? "block" : "none"}
+      >
+        <ProjectDoughnutChart
     </Flex>
   );
 };
