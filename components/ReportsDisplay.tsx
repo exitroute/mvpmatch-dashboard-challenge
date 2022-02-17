@@ -124,6 +124,7 @@ const ReportsDisplay = () => {
           reportsByProject={reportsByProject}
           projectIdsAndNames={projectIdsAndNames}
           renderProjectTotal={renderProjectTotal}
+          gateways={gateways}
         />
       )}
     </Box>
@@ -181,11 +182,10 @@ const SingleProjectReport = ({
 
 const MultipleProjectReports = ({
   reportsByProject,
+  gateways,
   projectIdsAndNames,
   renderProjectTotal,
 }: any) => {
-  const { gatewayId } = useReportContext();
-
   const renderProjectTitle = (id: string | undefined) => {
     return projectIdsAndNames.find((el: any) => el.id === id)?.name;
   };
@@ -206,7 +206,7 @@ const MultipleProjectReports = ({
                   </Text>
                 </AccordionButton>
                 <AccordionPanel>
-                  <ReportsTable project={project} gatewayId={gatewayId} />
+                  <ReportsTable project={project} gateways={gateways} />
                 </AccordionPanel>
               </>
             )}
@@ -216,7 +216,7 @@ const MultipleProjectReports = ({
       <Box
         width="50%"
         px="4rem"
-        display={gatewayId?.length !== 0 ? "block" : "none"}
+        display={gateways.length > 1 ? "none" : "block"}
       >
         <ProjectDoughnutChart
           project={reportsByProject.flat()}
@@ -290,15 +290,13 @@ const GatewayTable = ({ project }: any) => {
   );
 };
 
-const ReportsTable = ({ project, gatewayId }: any) => {
+const ReportsTable = ({ project, gateways }: any) => {
   return (
     <Table variant="simple">
       <Thead>
         <Tr>
           <Th>Date</Th>
-          <Th display={gatewayId?.length !== 0 ? "none" : "table-cell"}>
-            Gateway
-          </Th>
+          <Th display={gateways.length > 1 ? "none" : "table-cell"}>Gateway</Th>
           <Th>Transaction ID</Th>
           <Th>Amount</Th>
         </Tr>
@@ -308,7 +306,7 @@ const ReportsTable = ({ project, gatewayId }: any) => {
             <Tbody key={report.paymentId}>
               <Tr>
                 <Td>{report.created}</Td>
-                <Td display={gatewayId?.length !== 0 ? "none" : "table-cell"}>
+                <Td display={gateways.length > 1 ? "none" : "table-cell"}>
                   {report.gatewayName}
                 </Td>
                 <Td>{report.paymentId}</Td>
