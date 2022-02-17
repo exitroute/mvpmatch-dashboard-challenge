@@ -32,10 +32,10 @@ const ReportsDisplay = () => {
     })
     // remove empty arrays
     .filter((project) => project?.length)
+    // add gateway names
     .map((project) => {
       return (
         project
-          // add gateway names
           ?.map((report) => {
             gatewayIdsAndNames.map((el) => {
               if (el.id === report?.gatewayId) {
@@ -64,10 +64,6 @@ const ReportsDisplay = () => {
           })
       );
     });
-
-  const renderProjectTitle = (id: string | undefined) => {
-    return projectIdsAndNames.find((el) => el.id === id)?.name;
-  };
 
   const renderProjectTotal = (arr: any) => {
     return arr
