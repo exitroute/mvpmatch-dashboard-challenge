@@ -65,6 +65,34 @@ const ReportsDisplay = () => {
       );
     });
 
+  const gateways = reportsByProject.flat().reduce((acc: any, cur: any) => {
+    let found;
+    if (acc.length !== 0) {
+      found = acc.find((el: any | undefined) => el === cur.gatewayName);
+    }
+    if (!found) {
+      acc.push(cur.gatewayName);
+    }
+    return acc;
+  }, []);
+
+  const projects = reportsByProject
+    .flat()
+    .reduce((acc: any, cur: any) => {
+      let found;
+      if (acc.length !== 0) {
+        found = acc.find((el: any | undefined) => el === cur.projectId);
+      }
+      if (!found) {
+        acc.push(cur.projectId);
+      }
+      return acc;
+    }, [])
+    .map((project: any) => {
+      const found = projectIdsAndNames.find((el) => el.id === project);
+      return found?.name;
+    });
+
   const renderProjectTotal = (arr: any) => {
     return arr
       .reduce(
