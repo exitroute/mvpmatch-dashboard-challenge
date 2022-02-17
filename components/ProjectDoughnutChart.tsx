@@ -30,8 +30,6 @@ const Chart = ({ project, projectIdsAndNames }: any) => {
     });
   });
 
-  console.log("labelsAndData", labelsAndData);
-
   const chartData = {
     labels: labelsAndData.map((el: any) => el.projectName),
     datasets: [
