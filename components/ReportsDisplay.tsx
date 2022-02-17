@@ -262,7 +262,9 @@ const ReportsTable = ({ project }: any) => {
             <Tbody key={report.paymentId}>
               <Tr>
                 <Td>{report.created}</Td>
-                <Td>{report.gatewayName}</Td>
+                <Td display={gatewayId?.length !== 0 ? "none" : "table-cell"}>
+                  {report.gatewayName}
+                </Td>
                 <Td>{report.paymentId}</Td>
                 <Td>
                   {report.amount.toLocaleString("de-DE", {
