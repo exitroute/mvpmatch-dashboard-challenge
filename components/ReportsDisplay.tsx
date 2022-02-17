@@ -268,7 +268,9 @@ const ReportsTable = ({ project, gatewayId }: any) => {
       <Thead>
         <Tr>
           <Th>Date</Th>
-          <Th>Gateway</Th>
+          <Th display={gatewayId?.length !== 0 ? "none" : "table-cell"}>
+            Gateway
+          </Th>
           <Th>Transaction ID</Th>
           <Th>Amount</Th>
         </Tr>
