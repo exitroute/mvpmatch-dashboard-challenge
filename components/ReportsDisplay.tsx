@@ -139,14 +139,53 @@ const SingleProjectReport = ({
           </Box>
         </Flex>
       )}
+const MultipleProjectReports = ({
+  reportsByProject,
+  projectIdsAndNames,
+  renderProjectTotal,
+}: any) => {
   const { gatewayId } = useReportContext();
 
+  const renderProjectTitle = (id: string | undefined) => {
+    return projectIdsAndNames.find((el: any) => el.id === id)?.name;
+  };
+
+  return (
+    <Flex flexGrow="1">
+      <Accordion allowToggle flexGrow="1">
+        {reportsByProject.map((project: any, i: number) => (
+          <AccordionItem key={i}>
+            {project && (
+              <>
+                <AccordionButton justifyContent="space-between">
+                  <Text fontSize="large">
+                    {renderProjectTitle(project[0].projectId)}
+                  </Text>
+                  <Text fontSize="large">
+                    Total {renderProjectTotal(project)}
+                  </Text>
+                </AccordionButton>
+                <AccordionPanel>
+                  <ReportsTable project={project} gatewayId={gatewayId} />
+                </AccordionPanel>
+              </>
+            )}
+          </AccordionItem>
+        ))}
+      </Accordion>
       <Box
         width="50%"
         px="4rem"
         display={gatewayId?.length !== 0 ? "block" : "none"}
       >
         <ProjectDoughnutChart
+          project={reportsByProject.flat()}
+          projectIdsAndNames={projectIdsAndNames}
+        />
+        <Box padding="1rem">
+          Gateway Total: {renderProjectTotal(reportsByProject.flat())}
+        </Box>
+      </Box>
     </Flex>
   );
 };
