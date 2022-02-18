@@ -175,7 +175,7 @@ const SingleProjectReport = ({
           >
             <GatewayDoughnutChart project={reportsByGateway.flat()} />
             <Box padding="1rem">
-              Total: {renderProjectTotal(reportsByGateway.flat())}
+              Project Total: {renderProjectTotal(reportsByGateway.flat())}
             </Box>
           </Flex>
         </Flex>
