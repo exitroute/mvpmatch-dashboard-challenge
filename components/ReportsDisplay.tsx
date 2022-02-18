@@ -226,9 +226,11 @@ const MultipleProjectReports = ({
           project={reportsByProject.flat()}
           projectIdsAndNames={projectIdsAndNames}
         />
-        <Box padding="1rem">
-          Gateway Total: {renderProjectTotal(reportsByProject.flat())}
-        </Box>
+        {reportsByProject.length !== 0 && (
+          <Box padding="1rem">
+            Gateway Total: {renderProjectTotal(reportsByProject.flat())}
+          </Box>
+        )}
       </Box>
     </Flex>
   );
