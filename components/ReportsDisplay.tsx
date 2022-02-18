@@ -105,10 +105,14 @@ const ReportsDisplay = () => {
   return (
     <Box>
       <Box p="1rem">
-        <Text>
-          {`${projects?.length > 1 ? `All Projects` : projects[0]}`} |&nbsp;
-          {`${gateways?.length > 1 ? `All Gateways` : gateways[0]}`}
-        </Text>
+        {reports?.length === 0 ? (
+          <Text>Please create a report</Text>
+        ) : (
+          <Text>
+            {`${projects?.length > 1 ? `All Projects` : projects[0]}`} |&nbsp;
+            {`${gateways?.length > 1 ? `All Gateways` : gateways[0]}`}
+          </Text>
+        )}
       </Box>
 
       {reportsByProject.length === 1 ? (
