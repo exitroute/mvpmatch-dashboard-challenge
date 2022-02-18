@@ -302,7 +302,9 @@ const ReportsTable = ({ project, gateways }: any) => {
       <Thead>
         <Tr>
           <Th>Date</Th>
-          <Th display={gateways.length > 1 ? "none" : "table-cell"}>Gateway</Th>
+          <Th display={gateways.length === 1 ? "none" : "table-cell"}>
+            Gateway
+          </Th>
           <Th>Transaction ID</Th>
           <Th>Amount</Th>
         </Tr>
@@ -312,7 +314,7 @@ const ReportsTable = ({ project, gateways }: any) => {
             <Tbody key={report.paymentId}>
               <Tr>
                 <Td>{report.created}</Td>
-                <Td display={gateways.length > 1 ? "none" : "table-cell"}>
+                <Td display={gateways.length === 1 ? "none" : "table-cell"}>
                   {report.gatewayName}
                 </Td>
                 <Td>{report.paymentId}</Td>
